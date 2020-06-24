@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig } from "axios";
-import OAuth from 'oauth-1.0a';
-import crypto from 'crypto';
+import OAuth from "oauth-1.0a";
+import crypto from "crypto";
 
 const isAbsoluteURL = (url: string): boolean =>
   // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
@@ -8,20 +8,30 @@ const isAbsoluteURL = (url: string): boolean =>
   // by any combination of letters, digits, plus, period, or hyphen.
   /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 
-const combineURLs = (baseURL: string, relativeURL: string): string => relativeURL
-  ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-  : baseURL;
+const combineURLs = (baseURL: string, relativeURL: string): string =>
+  relativeURL
+    ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "")
+    : baseURL;
 
-const addOAuthInterceptor = (client: AxiosInstance, oauthKey: string, oauthSecret: string, signatureMethod: 'HMAC-SHA1' | 'HMAC-SHA256', token: string | null) => {
+const addOAuthInterceptor = (
+  client: AxiosInstance,
+  oauthKey: string,
+  oauthSecret: string,
+  signatureMethod: "HMAC-SHA1" | "HMAC-SHA256" = "HMAC-SHA256",
+  token: string | null = null
+) => {
   const signer = new OAuth({
     consumer: {
       key: oauthKey,
-      secret: oauthSecret,
+      secret: oauthSecret
     },
-    signature_method: 'HMAC-SHA1',
+    signature_method: "HMAC-SHA1",
     hash_function(s: string, key: string) {
-      return crypto.createHmac(signatureMethod === "HMAC-SHA1" ? 'sha1' : 'sha256', key).update(s).digest('base64');
-    },
+      return crypto
+        .createHmac(signatureMethod === "HMAC-SHA1" ? "sha1" : "sha256", key)
+        .update(s)
+        .digest("base64");
+    }
   });
 
   client.interceptors.request.use((config: AxiosRequestConfig) => ({
@@ -32,11 +42,14 @@ const addOAuthInterceptor = (client: AxiosInstance, oauthKey: string, oauthSecre
         signer.authorize({
           data: config.params,
           method: config.method!,
-          url: !config.baseURL || isAbsoluteURL(config.url) ? config.url : combineURLs(config.baseURL, config.url),
-        }),
+          url:
+            !config.baseURL || isAbsoluteURL(config.url)
+              ? config.url
+              : combineURLs(config.baseURL, config.url)
+        })
       )
     }
   }));
-}
+};
 
 export default addOAuthInterceptor;
