@@ -20,7 +20,7 @@ const addOAuthInterceptor = (client: AxiosInstance, oauthKey: string, oauthSecre
     },
     signature_method: 'HMAC-SHA1',
     hash_function(s: string, key: string) {
-      return crypto.createHmac('sha1', key).update(s).digest('base64');
+      return crypto.createHmac(signatureMethod === "HMAC-SHA1" ? 'sha1' : 'sha256', key).update(s).digest('base64');
     },
   });
 
