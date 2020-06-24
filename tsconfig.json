@@ -1,0 +1,15 @@
+{
+  "include": ["src/**.ts"],
+  "exclude": ["dist", "docs", "node_modules"],
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "outDir": "dist",
+    "types": ["node", "jest"]
+  }
+}

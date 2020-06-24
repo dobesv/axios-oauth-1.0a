@@ -1,0 +1,39 @@
+{
+  "author": {
+    "name": "Dobes Vandermeer",
+    "email": "dobesv@gmail.com"
+  },
+  "name": "axios-oauth-1.0a",
+  "description": "Easily add OAuth 1.0a signing to your axios client",
+  "sideEffects": false,
+  "license": "MIT",
+  "homepage": "https://github.com/dobesv/axios-oauth-1.0a",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dobesv/axios-oauth-1.0a.git"
+  },
+  "keywords": [
+    "oauth",
+    "axios"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-typescript": "^7.10.1",
+    "axios": "^0.19.2",
+    "jest": "^26.1.0",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.5"
+  },
+  "peerDependencies": {
+    "axios": "^0.19.2"
+  },
+  "dependencies": {
+    "oauth-1.0a": "^2.2.6"
+  }
+}
