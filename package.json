@@ -28,7 +28,7 @@
     "@babel/preset-typescript": "7.10.1",
     "axios": "0.21.1",
     "jest": "26.1.0",
-    "prettier": "2.0.5",
+    "prettier": "2.2.1",
     "typescript": "3.9.5"
   },
   "peerDependencies": {
