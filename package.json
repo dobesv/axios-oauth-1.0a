@@ -4,7 +4,7 @@
     "email": "dobesv@gmail.com"
   },
   "name": "axios-oauth-1.0a",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Easily add OAuth 1.0a signing to your axios client",
   "sideEffects": false,
   "license": "MIT",
