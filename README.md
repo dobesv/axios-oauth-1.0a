@@ -1,5 +1,7 @@
 # axios-oauth-1.0a
 
+Easily add OAuth 1.0a signing to your axios client
+
 ## Getting Started
 
 * `npm i axios-oauth-1.0a`
@@ -55,6 +57,7 @@ const options = {
     secret: 'yyy',
 };
 
+// Add interceptor that signs requests
 addOAuthInterceptor(client, options);
 ```
 
