@@ -33,6 +33,14 @@ const calculateBodyHash = (
     .digest("base64");
 };
 
+const isNonEmptyString = (val: any): boolean => {
+  if (typeof val !== "string") {
+    return false;
+  }
+
+  return val.length > 0;
+}
+
 export interface OAuthInterceptorConfig {
   /**
    * Hashing function to use
@@ -52,6 +60,11 @@ export interface OAuthInterceptorConfig {
   key: string;
 
   /**
+   * OAuth realm
+   */
+  realm: string | undefined;
+
+  /**
    * Consumer secret
    */
   secret: string;
@@ -60,16 +73,23 @@ export interface OAuthInterceptorConfig {
    * OAuth token
    */
   token?: string | null;
+
+  /**
+   * OAuth token secret
+   */
+  tokenSecret?: string | null;
 }
 
 const addOAuthInterceptor = (
   client: AxiosInstance,
   {
-    key,
-    secret,
     algorithm = "HMAC-SHA256",
-    token = null,
     includeBodyHash = "auto",
+    key,
+    realm = undefined,
+    secret,
+    token = null,
+    tokenSecret = null,
   }: OAuthInterceptorConfig
 ) => {
   client.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -81,6 +101,12 @@ const addOAuthInterceptor = (
       oauth_timestamp: String(Math.floor(Date.now() * 0.001)),
       oauth_version: "1.0",
     };
+
+    // if provided, oauth_token can be included in the oauth parameters
+    // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.1
+    if (isNonEmptyString(token)) {
+      oauthParams.oauth_token = token;
+    }
 
     const oauthUrl = new URL(
       !config.baseURL || isAbsoluteURL(config.url)
@@ -137,8 +163,16 @@ const addOAuthInterceptor = (
       oauthUrl.toString(),
       paramsToSign,
       secret,
-      token
+      tokenSecret || token
     );
+
+    // realm should not be included in the signature calculation
+    // but is optional in the OAuth 1.0 Authorization header
+    // so we need to add it after signing the request
+    // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.4.1.3.1
+    if (isNonEmptyString(realm)) {
+      oauthParams.realm = realm;
+    }
 
     const authorization = [
       "OAuth",
