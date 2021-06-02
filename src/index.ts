@@ -33,14 +33,6 @@ const calculateBodyHash = (
     .digest("base64");
 };
 
-const isNonEmptyString = (val: any): boolean => {
-  if (typeof val !== "string") {
-    return false;
-  }
-
-  return val.length > 0;
-}
-
 export interface OAuthInterceptorConfig {
   /**
    * Hashing function to use
@@ -62,7 +54,7 @@ export interface OAuthInterceptorConfig {
   /**
    * OAuth realm
    */
-  realm: string | undefined;
+  realm?: string | undefined;
 
   /**
    * Consumer secret
@@ -86,7 +78,7 @@ const addOAuthInterceptor = (
     algorithm = "HMAC-SHA256",
     includeBodyHash = "auto",
     key,
-    realm = undefined,
+    realm,
     secret,
     token = null,
     tokenSecret = null,
@@ -104,7 +96,7 @@ const addOAuthInterceptor = (
 
     // if provided, oauth_token can be included in the oauth parameters
     // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.1
-    if (isNonEmptyString(token)) {
+    if (token) {
       oauthParams.oauth_token = token;
     }
 
@@ -163,14 +155,14 @@ const addOAuthInterceptor = (
       oauthUrl.toString(),
       paramsToSign,
       secret,
-      tokenSecret || token
+      tokenSecret
     );
 
     // realm should not be included in the signature calculation
     // but is optional in the OAuth 1.0 Authorization header
     // so we need to add it after signing the request
     // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.4.1.3.1
-    if (isNonEmptyString(realm)) {
+    if (realm) {
       oauthParams.realm = realm;
     }
 
