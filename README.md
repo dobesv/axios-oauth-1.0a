@@ -1,3 +1,46 @@
+# axios-oauth-1.0a
+
+Easily add OAuth 1.0a signing to your axios client
+
+## Getting Started
+
+* `npm i axios-oauth-1.0a`
+
+## OAuth Options
+
+### algorithm
+
+* The hashing function to use for the `oauth_signature` value
+* Available values are: `HMAC-SHA1`, `HMAC-SHA256`
+* Default value is `HMAC-SHA256`
+
+### includeBodyHash
+
+* When `true`, always try to hash the body and include the hash in the signature
+* When `false`, never try to calculate `oauth_body_hash`
+* When `'auto'`, calculate `oauth_body_hash` on `PUT` or `POST` requests that have a body
+
+### key
+
+* The Consumer Key value
+
+### realm
+
+* An optional value to set the OAuth 1.0 realm
+
+### secret
+
+* The Consumer Secret value
+
+### token
+
+* The Access Token value
+
+### tokenSecret
+
+* An optional value to specify the access token secret
+
+## Example
 
 To sign your axios requests using OAuth 1.0a:
 
@@ -7,11 +50,18 @@ import addOAuthInterceptor from 'axios-oauth-1.0a';
 // Create a client whose requests will be signed
 const client = axios.create();
 
+// Specify the OAuth options
+const options = {
+    algorithm: 'HMAC-SHA1',
+    key: 'xxx',
+    secret: 'yyy',
+};
+
 // Add interceptor that signs requests
-// HMAC-SHA1 and HMAC-SHA256 are supported
-const oauthKey = 'xxx';
-const oauthSecret = 'yyy';
-const oauthMethod = 'HMAC-SHA1'
-addOAuthInterceptor(client, oauthKey, oauthSecret, oauthMethod);
+addOAuthInterceptor(client, options);
 ```
 
+## Documentation
+
+* [RFC5849 - The OAuth 1.0 Protocol](https://datatracker.ietf.org/doc/html/rfc5849)
+* [Axios Interceptors](https://axios-http.com/docs/interceptors)
