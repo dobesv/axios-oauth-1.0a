@@ -65,3 +65,7 @@ addOAuthInterceptor(client, options);
 
 * [RFC5849 - The OAuth 1.0 Protocol](https://datatracker.ietf.org/doc/html/rfc5849)
 * [Axios Interceptors](https://axios-http.com/docs/interceptors)
+
+## ChangeLog
+
+See [github releases](https://github.com/dobesv/axios-oauth-1.0a/releases)
