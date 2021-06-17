@@ -30,7 +30,7 @@
     "axios": "0.21.1",
     "jest": "27.0.3",
     "prettier": "2.3.0",
-    "typescript": "4.3.2"
+    "typescript": "4.3.3"
   },
   "peerDependencies": {
     "axios": "^0.21.0"
