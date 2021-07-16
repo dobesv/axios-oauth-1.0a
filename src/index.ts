@@ -146,7 +146,10 @@ const addOAuthInterceptor = (
         includeBodyHash === "auto" &&
         ["POST", "PUT"].includes(method))
     ) {
-      oauthParams.oauth_body_hash = calculateBodyHash(algorithm, config.data);
+      oauthParams.oauth_body_hash = paramsToSign.oauth_body_hash = calculateBodyHash(
+        algorithm,
+        config.data
+      );
     }
 
     oauthParams.oauth_signature = sign(
