@@ -108,7 +108,14 @@ const addOAuthInterceptor = (
 
     const paramsToSign = { ...oauthParams };
     if (config.params) {
-      for (const [k, v] of Object.entries(config.params)) {
+      let entries: [string, string][]
+      if (config.params instanceof URLSearchParams) {
+        entries = []
+        config.params.forEach((value, key) => entries.push([key, value]))
+      } else {
+        entries = Object.entries(config.params)
+      }
+      for (const [k, v] of entries) {
         paramsToSign[k] = String(v);
       }
     }
