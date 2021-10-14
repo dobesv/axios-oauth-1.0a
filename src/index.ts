@@ -106,25 +106,37 @@ const addOAuthInterceptor = (
         : combineURLs(config.baseURL, config.url)
     );
 
-    const paramsToSign = { ...oauthParams };
-    if (config.params) {
-      let entries: [string, string][]
-      if (config.params instanceof URLSearchParams) {
-        entries = []
-        config.params.forEach((value, key) => entries.push([key, value]))
+    const paramsToSign: Record<string, string | string[]> = {};
+
+    // Add one key/value pair to paramsToSign
+    const addParamToSign = (key: string, value: string) => {
+      const existingValue = paramsToSign[key];
+      if (typeof existingValue === "string") {
+        paramsToSign[key] = [existingValue, value];
+      } else if (Array.isArray(existingValue)) {
+        existingValue.push(value);
       } else {
-        entries = Object.entries(config.params)
+        paramsToSign[key] = value;
       }
-      for (const [k, v] of entries) {
-        paramsToSign[k] = String(v);
-      }
+    };
+
+    // Add multiple key/value pairs to paramsToSign
+    const addParamsToSign = (
+      m: URLSearchParams | Record<string, string> | string
+    ) => {
+      new URLSearchParams(m).forEach((value, key) =>
+        addParamToSign(key, value)
+      );
+    };
+
+    addParamsToSign(oauthParams);
+    if (config.params) {
+      addParamsToSign(config.params);
     }
 
     // Query parameters are hashed as part of params rather than as part of the URL
     if (oauthUrl.search) {
-      oauthUrl.searchParams.forEach((value, key) => {
-        paramsToSign[key] = value;
-      });
+      addParamsToSign(oauthUrl.searchParams);
       oauthUrl.search = "";
     }
 
@@ -144,21 +156,27 @@ const addOAuthInterceptor = (
     if (
       config.headers["content-type"] === "application/x-www-form-urlencoded"
     ) {
-      new URLSearchParams(config.data).forEach((value, key) => {
-        paramsToSign[key] = value;
-      });
+      addParamsToSign(config.data);
     } else if (
       includeBodyHash === true ||
       (config.data &&
         includeBodyHash === "auto" &&
         ["POST", "PUT"].includes(method))
     ) {
-      oauthParams.oauth_body_hash = paramsToSign.oauth_body_hash = calculateBodyHash(
-        algorithm,
-        config.data
-      );
+      const bodyHash = calculateBodyHash(algorithm, config.data);
+      oauthParams.oauth_body_hash = bodyHash;
+      addParamToSign("oauth_body_hash", bodyHash);
     }
 
+    console.log(
+      "sign",
+      algorithm,
+      method,
+      oauthUrl.toString(),
+      paramsToSign,
+      secret,
+      tokenSecret
+    );
     oauthParams.oauth_signature = sign(
       algorithm,
       method,
