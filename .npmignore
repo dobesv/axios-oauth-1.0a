@@ -1,5 +1,6 @@
-yarn.lock
-renovate.json
 .idea
-yarn-error.log
+.yarn
 babel.config.js
+renovate.json
+yarn-error.log
+yarn.lock
