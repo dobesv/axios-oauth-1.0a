@@ -168,15 +168,6 @@ const addOAuthInterceptor = (
       addParamToSign("oauth_body_hash", bodyHash);
     }
 
-    console.log(
-      "sign",
-      algorithm,
-      method,
-      oauthUrl.toString(),
-      paramsToSign,
-      secret,
-      tokenSecret
-    );
     oauthParams.oauth_signature = sign(
       algorithm,
       method,
