@@ -12,7 +12,8 @@ const testRequest = async function (
   tokenSecret: string | null,
   method: "GET" | "POST",
   url: string,
-  data: string | URLSearchParams | null
+  data?: string | URLSearchParams | null,
+  params?: URLSearchParams | Record<string, string> | null
 ) {
   const client = axios.create({
     baseURL: "http://test",
@@ -41,6 +42,7 @@ const testRequest = async function (
     method,
     url,
     ...(data && { data }),
+    ...(params && { params }),
   });
   const { authorization, ["content-type"]: mimeType } = resp.data.headers;
   const authData = parseAuthHeader(authorization);
@@ -92,23 +94,15 @@ const testRequest = async function (
   }
 
   const parsedUrl = new URL(url);
+  if (params) {
+    addParamsToSign(params);
+  }
   if (parsedUrl.search) {
     addParamsToSign(parsedUrl.searchParams);
   }
-
   if (mimeType === "application/x-www-form-urlencoded") {
     addParamsToSign(new URLSearchParams(data));
   }
-
-  console.log(
-    "test",
-    oauthSignatureMethod,
-    method,
-    url,
-    paramsToSign,
-    oauthConsumerSecret,
-    tokenSecret
-  );
 
   expect(paramsToSign).toMatchObject({
     oauth_consumer_key: oauthConsumerKey,
@@ -193,6 +187,23 @@ describe("addOAuthInterceptor", () => {
       "POST",
       "http://test/test?test=1",
       null
+    );
+  });
+  it("adds HMAC-SHA1 signature to simple POST request with query parameters in params as URLSearchParams", async () => {
+    await testRequest(
+      "HMAC-SHA1",
+      "k",
+      "s",
+      null,
+      null,
+      "POST",
+      "http://test/test",
+      null,
+      new URLSearchParams([
+        ["r", "1"],
+        ["r", "2"],
+        ["q", "qq"],
+      ])
     );
   });
 });
