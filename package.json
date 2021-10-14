@@ -4,7 +4,7 @@
     "email": "dobesv@gmail.com"
   },
   "name": "axios-oauth-1.0a",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Easily add OAuth 1.0a signing to your axios client",
   "sideEffects": false,
   "license": "MIT",
@@ -27,6 +27,7 @@
     "@babel/core": "7.15.5",
     "@babel/preset-env": "7.15.6",
     "@babel/preset-typescript": "7.15.0",
+    "@types/node": "^16.10.9",
     "axios": "0.22.0",
     "jest": "27.2.4",
     "prettier": "2.4.1",
