@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "prepare": "tsc",
-    "test": "jest"
+    "test": "yarn build && yarn jest"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
