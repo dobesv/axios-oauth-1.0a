@@ -18,8 +18,8 @@
     "axios"
   ],
   "scripts": {
-    "build": "tsc",
-    "prepare": "tsc",
+    "build": "yarn tsc",
+    "prepare": "yarn tsc",
     "test": "yarn build && yarn jest"
   },
   "main": "dist/index.js",
