@@ -75,6 +75,11 @@ export interface OAuthInterceptorConfig {
    * OAuth callback URL
    */
   callback?: string | null;
+
+  /**
+   * OAuth verifier
+   */
+   verifier?: string | null;
 }
 
 const addOAuthInterceptor = (
@@ -88,6 +93,7 @@ const addOAuthInterceptor = (
     token = null,
     tokenSecret = null,
     callback = null,
+    verifier = null,
   }: OAuthInterceptorConfig
 ) => {
   client.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -108,6 +114,10 @@ const addOAuthInterceptor = (
 
     if (callback) {
       oauthParams.oauth_callback = callback;
+    }
+
+    if (verifier) {
+      oauthParams.oauth_verifier = verifier;
     }
 
     const oauthUrl = new URL(

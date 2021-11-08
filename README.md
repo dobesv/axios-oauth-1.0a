@@ -44,6 +44,10 @@ Easily add OAuth 1.0a signing to your axios client
 
 * An optional value to set the callback url
 
+### verifier
+
+* An optional value to set the oauth verifier
+
 ## Example
 
 To sign your axios requests using OAuth 1.0a:
