@@ -10,6 +10,7 @@ const testRequest = async function (
   oauthConsumerSecret: string,
   token: string | null,
   tokenSecret: string | null,
+  callback: string | null,
   method: "GET" | "POST",
   url: string,
   data?: string | URLSearchParams | null,
@@ -24,6 +25,7 @@ const testRequest = async function (
     secret: oauthConsumerSecret,
     token,
     tokenSecret,
+    callback,
   });
   const mock = new MockAdapter(client);
   mock.onGet().reply(function (config) {
@@ -111,6 +113,7 @@ const testRequest = async function (
     oauth_timestamp: expect.any(String),
     oauth_version: "1.0",
     ...(token && { oauth_token: token }),
+    ...(callback && { oauth_callback: callback }),
   });
 
   // Strip off search and hash for signature calculation
@@ -136,6 +139,7 @@ describe("addOAuthInterceptor", () => {
       "s",
       "t",
       "ts",
+      null,
       "GET",
       "http://test/test",
       null
@@ -146,6 +150,7 @@ describe("addOAuthInterceptor", () => {
       "HMAC-SHA1",
       "k",
       "s",
+      null,
       null,
       null,
       "GET",
@@ -160,6 +165,7 @@ describe("addOAuthInterceptor", () => {
       "s",
       "t",
       "ts",
+      null,
       "POST",
       "http://test/test",
       "test=hello"
@@ -170,6 +176,7 @@ describe("addOAuthInterceptor", () => {
       "HMAC-SHA1",
       "k",
       "s",
+      null,
       null,
       null,
       "POST",
@@ -184,6 +191,7 @@ describe("addOAuthInterceptor", () => {
       "s",
       null,
       null,
+      null,
       "POST",
       "http://test/test?test=1",
       null
@@ -196,6 +204,7 @@ describe("addOAuthInterceptor", () => {
       "s",
       null,
       null,
+      null,
       "POST",
       "http://test/test",
       null,
@@ -204,6 +213,34 @@ describe("addOAuthInterceptor", () => {
         ["r", "2"],
         ["q", "qq"],
       ])
+    );
+  });
+  it("adds HMAC-SHA1 signature to simple POST request with callback URL", async () => {
+    await testRequest(
+      "HMAC-SHA1",
+      "k",
+      "s",
+      null,
+      null,
+      "http://test/callback",
+      "POST",
+      "http://test/test",
+      null,
+      null
+    );
+  });
+  it("adds HMAC-SHA256 signature to simple POST request with callback URL", async () => {
+    await testRequest(
+      "HMAC-SHA256",
+      "k",
+      "s",
+      null,
+      null,
+      "http://test/callback",
+      "POST",
+      "http://test/test",
+      null,
+      null
     );
   });
 });

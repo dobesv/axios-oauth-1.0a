@@ -70,6 +70,11 @@ export interface OAuthInterceptorConfig {
    * OAuth token secret
    */
   tokenSecret?: string | null;
+
+  /**
+   * OAuth callback URL
+   */
+  callback?: string | null;
 }
 
 const addOAuthInterceptor = (
@@ -82,6 +87,7 @@ const addOAuthInterceptor = (
     secret,
     token = null,
     tokenSecret = null,
+    callback = null,
   }: OAuthInterceptorConfig
 ) => {
   client.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -98,6 +104,10 @@ const addOAuthInterceptor = (
     // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.1
     if (token) {
       oauthParams.oauth_token = token;
+    }
+
+    if (callback) {
+      oauthParams.oauth_callback = callback;
     }
 
     const oauthUrl = new URL(

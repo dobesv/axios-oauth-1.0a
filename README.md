@@ -40,6 +40,10 @@ Easily add OAuth 1.0a signing to your axios client
 
 * An optional value to specify the access token secret
 
+### callback
+
+* An optional value to set the callback url
+
 ## Example
 
 To sign your axios requests using OAuth 1.0a:
