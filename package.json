@@ -29,7 +29,7 @@
     "@babel/preset-env": "7.16.4",
     "@babel/preset-typescript": "7.16.0",
     "@types/auth-header": "1.0.2",
-    "@types/jest": "27.0.2",
+    "@types/jest": "27.0.3",
     "@types/node": "16.11.7",
     "auth-header": "1.0.0",
     "axios": "0.24.0",
