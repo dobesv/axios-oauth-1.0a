@@ -4,7 +4,15 @@ Easily add OAuth 1.0a signing to your axios client
 
 ## Getting Started
 
-* `npm i axios-oauth-1.0a`
+    npm i axios-oauth-1.0a
+
+or
+
+    yarn add axios-oauth-1.0a
+
+For use in the browser, you'll need to configure buffer and crypto support polyfills and fallback modules.  See 
+[resolve.fallback](https://webpack.js.org/configuration/resolve/#resolvefallback) and 
+[How To Polyfill Buffer With WebPack v5](https://viglucci.io/how-to-polyfill-buffer-with-webpack-5) for more information.
 
 ## OAuth Options
 
