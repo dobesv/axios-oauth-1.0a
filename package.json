@@ -32,14 +32,14 @@
     "@types/jest": "27.4.0",
     "@types/node": "16.11.20",
     "auth-header": "1.0.0",
-    "axios": "0.24.0",
+    "axios": "0.25.0",
     "axios-mock-adapter": "1.20.0",
     "jest": "27.4.7",
     "prettier": "2.5.1",
     "typescript": "4.4.4"
   },
   "peerDependencies": {
-    "axios": "^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0"
+    "axios": "^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0"
   },
   "dependencies": {
     "oauth-sign": "^0.9.0"
