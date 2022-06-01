@@ -2861,16 +2861,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-mock-adapter@npm:1.20.0":
-  version: 1.20.0
-  resolution: "axios-mock-adapter@npm:1.20.0"
+"axios-mock-adapter@npm:1.21.1":
+  version: 1.21.1
+  resolution: "axios-mock-adapter@npm:1.21.1"
   dependencies:
     fast-deep-equal: ^3.1.3
-    is-blob: ^2.1.0
     is-buffer: ^2.0.5
   peerDependencies:
-    axios: ">= 0.9.0"
-  checksum: 93b366b135d09a179d0d0562c705cb0104f0e92a8839a45abedc405322ca01eaa8b9e859c087a8d366d6ab1cac42d40b845ae40b8a9a0dd77110097570836f88
+    axios: ">= 0.17.0"
+  checksum: 674d017e80685b499b5f9ffc55509bae00bce0f7b33316eaed7e8b64243cdda356465185c0bf0d866d020b4a132e6c3f73bb887a1d4e75c086d608619ded01b0
   languageName: node
   linkType: hard
 
@@ -2886,7 +2885,7 @@ __metadata:
     "@types/node": 16.11.38
     auth-header: 1.0.0
     axios: 0.27.2
-    axios-mock-adapter: 1.20.0
+    axios-mock-adapter: 1.21.1
     jest: 28.1.0
     oauth-sign: ^0.9.0
     prettier: 2.6.2
@@ -3977,13 +3976,6 @@ fsevents@^2.3.2:
   version: 0.2.1
   resolution: "is-arrayish@npm:0.2.1"
   checksum: eef4417e3c10e60e2c810b6084942b3ead455af16c4509959a27e490e7aee87cfb3f38e01bbde92220b528a0ee1a18d52b787e1458ee86174d8c7f0e58cd488f
-  languageName: node
-  linkType: hard
-
-"is-blob@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "is-blob@npm:2.1.0"
-  checksum: ce24917bf50a52736e37702a14bc729a0e1eab6bf61ac0b8e6ee86caf33d73eba297131736f8e54615732d08168859493ba7ced4fc840bb5b7c2ae21a5de6861
   languageName: node
   linkType: hard
 
