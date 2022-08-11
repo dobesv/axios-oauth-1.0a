@@ -96,7 +96,7 @@ const addOAuthInterceptor = (
     verifier = null,
   }: OAuthInterceptorConfig
 ) => {
-  client.interceptors.request.use((config: AxiosRequestConfig) => {
+  return client.interceptors.request.use((config: AxiosRequestConfig) => {
     const method = (config.method || "GET").toUpperCase();
     const oauthParams: { [k: string]: string } = {
       oauth_consumer_key: key,
