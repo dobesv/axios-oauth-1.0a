@@ -223,3 +223,4 @@ const addOAuthInterceptor = (
 };
 
 export default addOAuthInterceptor;
+module.exports = addOAuthInterceptor;
