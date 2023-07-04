@@ -1,6 +1,5 @@
 node_modules
 .idea
-dist
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
