@@ -82,6 +82,10 @@ export interface OAuthInterceptorConfig {
    verifier?: string | null;
 }
 
+export interface OAuthInterceptorRequestConfig extends AxiosRequestConfig {
+  oauth?: OAuthInterceptorConfig;
+}
+
 const addOAuthInterceptor = (
   client: AxiosInstance,
   {
@@ -94,30 +98,43 @@ const addOAuthInterceptor = (
     tokenSecret = null,
     callback = null,
     verifier = null,
-  }: OAuthInterceptorConfig
+  }: Partial<OAuthInterceptorConfig> = {}
 ) => {
-  return client.interceptors.request.use((config: AxiosRequestConfig) => {
+  return client.interceptors.request.use((config: OAuthInterceptorRequestConfig) => {
+    const oauthOptions: OAuthInterceptorConfig = {
+      algorithm,
+      includeBodyHash,
+      key,
+      realm,
+      secret,
+      token,
+      tokenSecret,
+      callback,
+      verifier,
+      ...(config.oauth || {})
+    };
+
     const method = (config.method || "GET").toUpperCase();
     const oauthParams: { [k: string]: string } = {
-      oauth_consumer_key: key,
+      oauth_consumer_key: oauthOptions.key,
       oauth_nonce: generateNonce(),
-      oauth_signature_method: algorithm,
+      oauth_signature_method: oauthOptions.algorithm,
       oauth_timestamp: String(Math.floor(Date.now() * 0.001)),
       oauth_version: "1.0",
     };
 
     // if provided, oauth_token can be included in the oauth parameters
     // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.1
-    if (token) {
-      oauthParams.oauth_token = token;
+    if (oauthOptions.token) {
+      oauthParams.oauth_token = oauthOptions.token;
     }
 
-    if (callback) {
-      oauthParams.oauth_callback = callback;
+    if (oauthOptions.callback) {
+      oauthParams.oauth_callback = oauthOptions.callback;
     }
 
-    if (verifier) {
-      oauthParams.oauth_verifier = verifier;
+    if (oauthOptions.verifier) {
+      oauthParams.oauth_verifier = oauthOptions.verifier;
     }
 
     const oauthUrl = new URL(
@@ -178,31 +195,31 @@ const addOAuthInterceptor = (
     ) {
       addParamsToSign(config.data);
     } else if (
-      includeBodyHash === true ||
+      oauthOptions.includeBodyHash === true ||
       (config.data &&
-        includeBodyHash === "auto" &&
+        oauthOptions.includeBodyHash === "auto" &&
         ["POST", "PUT"].includes(method))
     ) {
-      const bodyHash = calculateBodyHash(algorithm, config.data);
+      const bodyHash = calculateBodyHash(oauthOptions.algorithm, config.data);
       oauthParams.oauth_body_hash = bodyHash;
       addParamToSign("oauth_body_hash", bodyHash);
     }
 
     oauthParams.oauth_signature = sign(
-      algorithm,
+      oauthOptions.algorithm,
       method,
       oauthUrl.toString(),
       paramsToSign,
-      secret,
-      tokenSecret
+      oauthOptions.secret,
+      oauthOptions.tokenSecret
     );
 
     // realm should not be included in the signature calculation
     // but is optional in the OAuth 1.0 Authorization header
     // so we need to add it after signing the request
     // more information: https://datatracker.ietf.org/doc/html/rfc5849#section-3.4.1.3.1
-    if (realm) {
-      oauthParams.realm = realm;
+    if (oauthOptions.realm) {
+      oauthParams.realm = oauthOptions.realm;
     }
 
     const authorization = [
