@@ -41,7 +41,7 @@
     "@types/node": "^22.13.10",
     "auth-header": "1.0.0",
     "axios": "1.8.2",
-    "axios-mock-adapter": "1.21.1",
+    "axios-mock-adapter": "2.1.0",
     "jest": "^29.7.0",
     "prettier": "3.5.3",
     "tsup": "8.4.0",
