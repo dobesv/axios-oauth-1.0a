@@ -2099,10 +2099,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.18.44":
-  version: 16.18.44
-  resolution: "@types/node@npm:16.18.44"
-  checksum: 5600765a303e2ab8913e8dbc6871f2740678bf6420f0b009a0ad059d4cbf7cd93a9679dc304c9d382bee57fa9cf802ea8b8b70839d11903e98bd9e09c98a7e32
+"@types/node@npm:16.18.126":
+  version: 16.18.126
+  resolution: "@types/node@npm:16.18.126"
+  checksum: 86112e7499f8a4d1bb60696cab0bf464adf3c141fca4bc5451e8f3aba5736529b76d4b4396edb21e5d7c19592852f7d6cb81ee70074fd13bde2db2d0db720467
   languageName: node
   linkType: hard
 
@@ -2257,7 +2257,7 @@ __metadata:
     "@babel/preset-typescript": 7.26.0
     "@types/auth-header": 1.0.2
     "@types/jest": 28.1.5
-    "@types/node": 16.18.44
+    "@types/node": 16.18.126
     auth-header: 1.0.0
     axios: 0.27.2
     axios-mock-adapter: 1.21.1
