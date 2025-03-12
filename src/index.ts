@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosRequestConfig } from "axios";
+import { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import crypto from "crypto";
 import { rfc3986, sign } from "oauth-sign";
 
@@ -96,7 +96,7 @@ const addOAuthInterceptor = (
     verifier = null,
   }: OAuthInterceptorConfig
 ) => {
-  return client.interceptors.request.use((config: AxiosRequestConfig) => {
+  return client.interceptors.request.use((config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const method = (config.method || "GET").toUpperCase();
     const oauthParams: { [k: string]: string } = {
       oauth_consumer_key: key,
@@ -212,13 +212,8 @@ const addOAuthInterceptor = (
         .join(","),
     ].join(" ");
 
-    return {
-      ...config,
-      headers: {
-        ...config.headers,
-        authorization,
-      },
-    };
+    config.headers.set('authorization', authorization);
+    return config;
   });
 };
 
