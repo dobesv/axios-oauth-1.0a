@@ -1991,10 +1991,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/auth-header@npm:1.0.2":
-  version: 1.0.2
-  resolution: "@types/auth-header@npm:1.0.2"
-  checksum: 0fe39eea782a05195a99fc6dc919ac45ae3d320738b9ed4d8471529bb2e0e1759a9d5a669c418610fa1c5e7639ed3548e34089ff9bbd9f871a04dd614417a804
+"@types/auth-header@npm:1.0.6":
+  version: 1.0.6
+  resolution: "@types/auth-header@npm:1.0.6"
+  checksum: 6a68cc275cef881629862766bb300628812187fbd5530a5be7ca0cb79762b1fbea237c96d2c434bfd112061f5cf6796d2323a087aa6f1a1902954e1cc7efce51
   languageName: node
   linkType: hard
 
@@ -2255,7 +2255,7 @@ __metadata:
     "@babel/core": 7.26.10
     "@babel/preset-env": 7.26.9
     "@babel/preset-typescript": 7.26.0
-    "@types/auth-header": 1.0.2
+    "@types/auth-header": 1.0.6
     "@types/jest": 28.1.5
     "@types/node": 16.18.126
     auth-header: 1.0.0
@@ -5309,11 +5309,11 @@ __metadata:
 
 "typescript@patch:typescript@5.8.2#~builtin<compat/typescript>":
   version: 5.8.2
-  resolution: "typescript@patch:typescript@npm%3A5.8.2#~builtin<compat/typescript>::version=5.8.2&hash=f3b441"
+  resolution: "typescript@patch:typescript@npm%3A5.8.2#~builtin<compat/typescript>::version=5.8.2&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: a58d19ff9811c1764a299dd83ca20ed8020f0ab642906dafc880121b710751227201531fdc99878158205c356ac79679b0b61ac5b42eda0e28bfb180947a258d
+  checksum: 557109f14248260656c551f1a8bf8de188d5397928a8ae6e6f00e268f25975b6e572522085ae8e06683de019b1885781f50090f07c4f0a9a34d60c459305f80d
   languageName: node
   linkType: hard
 
