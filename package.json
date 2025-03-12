@@ -18,8 +18,8 @@
     "axios"
   ],
   "scripts": {
-    "build": "tsup src/index.ts cjs,esm --dts",
-    "prepare": "tsup src/index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "prepare": "yarn build",
     "test": "yarn build && yarn jest"
   },
   "main": "dist/index.js",
