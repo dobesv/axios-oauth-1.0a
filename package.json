@@ -33,9 +33,9 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.26.10",
-    "@babel/preset-env": "7.26.9",
-    "@babel/preset-typescript": "7.26.0",
+    "@babel/core": "7.28.6",
+    "@babel/preset-env": "7.28.6",
+    "@babel/preset-typescript": "7.28.5",
     "@types/auth-header": "1.0.6",
     "@types/jest": "29.5.14",
     "@types/node": "^22.13.10",
