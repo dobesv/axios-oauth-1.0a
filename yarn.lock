@@ -3004,7 +3004,7 @@ __metadata:
     "@types/jest": "npm:30.0.0"
     "@types/node": "npm:^24.0.0"
     auth-header: "npm:1.0.0"
-    axios: "npm:1.15.1"
+    axios: "npm:1.15.2"
     axios-mock-adapter: "npm:2.1.0"
     jest: "npm:^30.0.0"
     oauth-sign: "npm:^0.9.0"
@@ -3016,14 +3016,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"axios@npm:1.15.1":
-  version: 1.15.1
-  resolution: "axios@npm:1.15.1"
+"axios@npm:1.15.2":
+  version: 1.15.2
+  resolution: "axios@npm:1.15.2"
   dependencies:
     follow-redirects: "npm:^1.15.11"
     form-data: "npm:^4.0.5"
     proxy-from-env: "npm:^2.1.0"
-  checksum: 10/bfa286e29d1866695426b45c9a25ef21975669e500a8511a01e2fe5b9c4f734906701266d214b562dc525e463bae2bbba24c8e9e10c214f0d4f4c669e9372a7f
+  checksum: 10/eebbd8cb777316d4252cd994a06ec9fb956ef519214a62dab6c5443ae8b753b5116e9a770502316789e6cdef1101e6aae53b6936d6a3791b2d66d75f4d7d2462
   languageName: node
   linkType: hard
 
